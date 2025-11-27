@@ -117,3 +117,21 @@ jobs:
           
           echo "❌ Failed to push after 5 attempts"
           exit 1
+
+      - name: Prepare gh-pages content
+        run: |
+          if [ -f "index.html" ]; then
+            cp index.html ./output/
+            echo "✅ Copied index.html to output directory"
+          fi
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output
+          publish_branch: gh-pages
+          keep_files: true
+          user_name: 'GitHub Actions'
+          user_email: 'actions@github.com'
+          commit_message: 'Deploy output and index.html to gh-pages'
