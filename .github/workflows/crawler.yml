@@ -56,16 +56,16 @@ jobs:
           
       - name: Restore gh-pages content
         run: |
+          set -e
           echo "🔍 检查 gh-pages 分支..."
+          mkdir -p ./output/
           if git show-ref --verify --quiet refs/remotes/origin/gh-pages; then
             echo "✅ gh-pages 分支存在，正在复制文件到 output 目录..."
-            mkdir -p ./output/
             git archive origin/gh-pages | tar -x -C ./output/
             echo "✅ gh-pages 内容已复制到 output 目录"
             ls -la ./output/ | head -20
           else
             echo "⚠️ gh-pages 分支不存在，跳过复制"
-            mkdir -p ./output/
           fi
           
       - name: Run crawler
@@ -91,7 +91,6 @@ jobs:
         
       - name: Prepare gh-pages content
         run: |
-          mkdir -p ./output/
           if [ -f "index.html" ]; then
             cp index.html ./output/
             echo "✅ Copied index.html to output directory"
