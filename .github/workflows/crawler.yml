@@ -40,6 +40,29 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Override config files from repo variables
+        env:
+          CONFIG_YAML: ${{ vars.CONFIG_YAML }}
+          FREQUENCY_WORDS: ${{ vars.FREQUENCY_WORDS }}
+        run: |
+          echo "🔧 检查是否需要从仓库变量覆盖配置文件..."
+          
+          if [ -n "$CONFIG_YAML" ]; then
+            echo "✅ 发现 CONFIG_YAML 变量，正在覆盖 config/config.yaml..."
+            printf '%s' "$CONFIG_YAML" > config/config.yaml
+            echo "✅ config/config.yaml 已从仓库变量覆盖"
+          else
+            echo "ℹ️ 未设置 CONFIG_YAML 变量，使用默认配置文件"
+          fi
+          
+          if [ -n "$FREQUENCY_WORDS" ]; then
+            echo "✅ 发现 FREQUENCY_WORDS 变量，正在覆盖 config/frequency_words.txt..."
+            printf '%s' "$FREQUENCY_WORDS" > config/frequency_words.txt
+            echo "✅ config/frequency_words.txt 已从仓库变量覆盖"
+          else
+            echo "ℹ️ 未设置 FREQUENCY_WORDS 变量，使用默认配置文件"
+          fi
           
       - name: Verify required files
         run: |
