@@ -58,7 +58,7 @@ jobs:
           
           if [ -n "$FREQUENCY_WORDS" ]; then
             echo "✅ 发现 FREQUENCY_WORDS 变量，正在覆盖 config/frequency_words.txt..."
-            printf '%s\n' "$FREQUENCY_WORDS" > config/frequency_words.txt
+            printf '%s' "$FREQUENCY_WORDS" > config/frequency_words.txt
             echo "✅ config/frequency_words.txt 已从仓库变量覆盖"
           else
             echo "ℹ️ 未设置 FREQUENCY_WORDS 变量，使用默认配置文件"
