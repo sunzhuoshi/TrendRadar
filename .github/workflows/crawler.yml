@@ -50,7 +50,7 @@ jobs:
           
           if [ -n "$CONFIG_YAML" ]; then
             echo "✅ 发现 CONFIG_YAML 变量，正在覆盖 config/config.yaml..."
-            printf '%s\n' "$CONFIG_YAML" > config/config.yaml
+            printf '%s' "$CONFIG_YAML" > config/config.yaml
             echo "✅ config/config.yaml 已从仓库变量覆盖"
           else
             echo "ℹ️ 未设置 CONFIG_YAML 变量，使用默认配置文件"
